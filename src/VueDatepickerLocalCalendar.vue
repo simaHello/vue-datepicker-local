@@ -258,11 +258,14 @@ export default {
 
 <style>
 .calendar {
-  float: left;
+  /* float: left; */
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  width: 196px;
+  margin: 0 auto;
+  color: white;
 }
 .calendar+.calendar{
   border-left: solid 1px #eaeaea;
@@ -277,7 +280,7 @@ export default {
 }
 
 .calendar-head a {
-  color: #666;
+  color: white;
   font-weight: bold;
   cursor: pointer;
   display: inline-block;
@@ -351,19 +354,18 @@ export default {
 }
 
 .calendar-date-out {
-  color: #ccc;
+  color: #1a4480;
 }
 
 .calendar-date:hover,
 .calendar-date-on {
-  background: #eaf8fe;
+  background: rgba(0, 106, 255, 0.5);
 }
 
 .calendar-date-selected,
 .calendar-date-selected:hover {
-  color: #fff;
   font-weight: bold;
-  background: #1284e7;
+  color: #006aff;
 }
 
 .calendar-date-disabled {

@@ -1,14 +1,14 @@
 <template>
 <div>
-  <vue-datepicker-local v-model="timeRange" format="YYYY-MM-DD HH:mm:ss" :disabled-date="disabledDate" @input="change"/><br/>
+  <!-- <vue-datepicker-local v-model="timeRange" format="YYYY-MM-DD HH:mm:ss" :disabled-date="disabledDate" @input="change"/><br/>
   <vue-datepicker-local v-model="timeRange" format="YYYY-MM-DD HH:mm:ss" :disabled-date="disabledDate" :local="local" range-separator="至"/><br/>
-  <vue-datepicker-local v-model="timeRange" format="YYYY-MM-DD HH:mm:ss" :disabled-date="disabledDate" :local="local" show-buttons @confirm="selectedDate" clearable @cancel="cancel" @clear="clear"/><br/>
-  <vue-datepicker-local v-model="time" format="YYYY-MMM-DD" :local="local" /><br/>
-  <vue-datepicker-local v-model="time" format="YYYY-MM" show-buttons @confirm="selectedDate"/><br/>
+  <vue-datepicker-local v-model="timeRange" format="YYYY-MM-DD HH:mm:ss" :disabled-date="disabledDate" :local="local" show-buttons @confirm="selectedDate" clearable @cancel="cancel" @clear="clear"/><br/> -->
+  <vue-datepicker-local v-model="empty" format="YYYY-MM-DD"  placeholder="请选择日期"/><br/>
+  <!-- <vue-datepicker-local v-model="time" format="YYYY-MM" show-buttons @confirm="selectedDate"/><br/>
   <vue-datepicker-local v-model="time" format="YYYY"/><br/>
   <vue-datepicker-local v-model="empty" format="YYYY-MM-DD HH:mm:ss" clearable placeholder="select date"/><br/>
   <vue-datepicker-local v-model="now" disabled/><br/>
-  <vue-datepicker-local v-model="timeRange"/><br/>
+  <vue-datepicker-local v-model="timeRange"/><br/> -->
 </div>
 </template>
 
