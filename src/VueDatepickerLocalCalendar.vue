@@ -277,6 +277,7 @@ export default {
   height: 34px;
   text-align: center;
   position: relative;
+  /* background-color: rgba(0, 32, 76, 0.9); */
 }
 
 .calendar-head a {
@@ -375,13 +376,15 @@ export default {
 }
 
 .calendar-foot {
-  margin-top: 5px;
+  padding-bottom: 5px;
 }
 
 .calendar-hour {
   display: inline-block;
-  border: 1px solid #e6e5e5;
-  color: #9e9e9e;
+  border: 1px solid #006aff;
+  color: white;
+  padding: 0 5px;
+  border-radius: 10px;
 }
 
 .calendar-hour a {
@@ -403,9 +406,14 @@ export default {
   width: 100%;
   height: 100%;
   position: absolute;
-  background: #fff;
+  background: rgba(0, 32, 76, 0.9);
   left: 0;
   top: 0;
+}
+.calendar-hours .calendar-title,
+.calendar-minutes .calendar-title,
+.calendar-seconds .calendar-title{
+  background: rgba(0, 32, 76, 1);
 }
 
 .calendar-months a {
@@ -433,7 +441,7 @@ export default {
   margin-top: -30px;
   height: 30px;
   line-height: 30px;
-  background: #fff;
+  
   text-align: center;
   font-weight: bold;
 }
