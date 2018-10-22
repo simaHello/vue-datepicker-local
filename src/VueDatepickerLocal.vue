@@ -240,7 +240,7 @@ export default {
   height: 30px;
   box-sizing: border-box;
   outline: none;
-  padding: 0 34px 0 12px;
+  padding: 0 30px 0 12px;
   font-size: 14px;
   width: 100%;
   padding:0 25px;

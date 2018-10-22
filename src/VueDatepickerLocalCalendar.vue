@@ -273,8 +273,8 @@ export default {
   padding-left: 5px;
 }
 .calendar-head {
-  line-height: 34px;
-  height: 34px;
+  line-height: 30px;
+  height: 30px;
   text-align: center;
   position: relative;
   /* background-color: rgba(0, 32, 76, 0.9); */
