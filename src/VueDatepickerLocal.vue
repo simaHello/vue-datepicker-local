@@ -237,7 +237,7 @@ export default {
   transition: all 200ms ease;
   border: 1px solid #006aff;
   background-color: rgba(0, 106, 255, .2);
-  height: 34px;
+  height: 30px;
   box-sizing: border-box;
   outline: none;
   padding: 0 34px 0 12px;
@@ -279,7 +279,7 @@ export default {
   transform-origin: center top;
   font-size: 12px;
   background: #fff;
-  border: 1px solid #d9d9d9;
+  /* border: 1px solid #d9d9d9; */
   box-shadow: 0 1px 6px rgba(99, 99, 99, 0.2);
   /* margin-top: 2px; */
   outline: 0;
