@@ -181,6 +181,7 @@ export default {
   position: relative;
   background-color: rgba(0, 32, 76, .9);
   border-radius: 15px;
+  width: 100%;
 }
 
 .datepicker:before {
@@ -249,8 +250,6 @@ export default {
   -ms-user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
-  position: relative;
-  z-index: 999;
 }
 
 .datepicker>input::-webkit-input-placeholder {
@@ -272,7 +271,6 @@ export default {
 }
 
 .datepicker-popup {
-  position: absolute;
   transition: all 200ms ease;
   opacity: 1;
   transform: scaleY(1);
@@ -287,10 +285,7 @@ export default {
   /* padding: 0 25px; */
   text-align: center;
   overflow: hidden;
-  z-index: 998;
   width: 100%;
-  padding-top: 30px;
-  top: -1px;
   background-color: rgba(0, 32, 76, .9);
 }
 
