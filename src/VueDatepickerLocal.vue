@@ -1,27 +1,49 @@
 <template>
-<div class="datepicker" :class="{'datepicker-range':range,'datepicker__clearable':clearable&&text&&!disabled}">
-  <input readonly :value="text" :class="[show ? 'focus' : '', inputClass]" :disabled="disabled" :placeholder="placeholder" :name="name" v-if="type!=='inline'"/>
-  <a class="datepicker-close" @click.stop="cls"></a>
-  <transition name="datepicker-anim">
-    <div class="datepicker-popup" :class="[popupClass,{'datepicker-inline':type==='inline'}]" tabindex="-1" v-if="show||type==='inline'">
-      <template v-if="range">
-        <vue-datepicker-local-calendar v-model="dates[0]" :left="true"></vue-datepicker-local-calendar>
-        <vue-datepicker-local-calendar v-model="dates[1]" :right="true"></vue-datepicker-local-calendar>
-      </template>
-      <template v-else>
-        <vue-datepicker-local-calendar v-model="dates[0]"></vue-datepicker-local-calendar>
-      </template>
-      <div v-if="showButtons" class="datepicker__buttons">
-        <button @click.prevent.stop="cancel" class="datepicker__button-cancel">{{this.local.cancelTip}}</button>
-        <button @click.prevent.stop="submit" class="datepicker__button-select">{{this.local.submitTip}}</button>
+  <div
+    class="datepicker"
+    :class="{'datepicker-range':range,'datepicker__clearable':clearable&&text&&!disabled}"
+  >
+    <input
+      readonly
+      :value="text"
+      :class="[show ? 'focus' : '', inputClass]"
+      :disabled="disabled"
+      :placeholder="placeholder"
+      :name="name"
+      v-if="type!=='inline'"
+    >
+    <a class="datepicker-close" @click.stop="cls"></a>
+    <transition name="datepicker-anim">
+      <div
+        class="datepicker-popup"
+        :class="[popupClass,{'datepicker-inline':type==='inline'}]"
+        tabindex="-1"
+        v-if="show||type==='inline'"
+      >
+        <template v-if="range">
+          <vue-datepicker-local-calendar v-model="dates[0]" :left="true"></vue-datepicker-local-calendar>
+          <vue-datepicker-local-calendar v-model="dates[1]" :right="true"></vue-datepicker-local-calendar>
+        </template>
+        <template v-else>
+          <vue-datepicker-local-calendar v-model="dates[0]"></vue-datepicker-local-calendar>
+        </template>
+        <div v-if="showButtons" class="datepicker__buttons">
+          <button
+            @click.prevent.stop="cancel"
+            class="datepicker__button-cancel"
+          >{{this.local.cancelTip}}</button>
+          <button
+            @click.prevent.stop="submit"
+            class="datepicker__button-select"
+          >{{this.local.submitTip}}</button>
+        </div>
       </div>
-    </div>
-  </transition>
-</div>
+    </transition>
+  </div>
 </template>
 
 <script>
-import VueDatepickerLocalCalendar from './VueDatepickerLocalCalendar.vue'
+import VueDatepickerLocalCalendar from './VueDatepickerLocalCalendar.vue';
 export default {
   name: 'VueDatepickerLocal',
   components: { VueDatepickerLocalCalendar },
@@ -63,8 +85,12 @@ export default {
           minuteTip: '选择分钟', // tip of select minute
           secondTip: '选择秒数', // tip of select second
           yearSuffix: '年', // format of head
-          monthsHead: '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'), // months of head
-          months: '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'), // months of panel
+          monthsHead: '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split(
+            '_'
+          ), // months of head
+          months: '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split(
+            '_'
+          ), // months of panel
           weeks: '一_二_三_四_五_六_日'.split('_'), // weeks
           cancelTip: '取消', // default text for cancel button
           submitTip: '确定' // default text for submit button
@@ -89,11 +115,13 @@ export default {
     },
     text () {
       const val = this.value
-      const txt = this.dates.map(date => this.tf(date)).join(` ${this.rangeSeparator} `)
+      const txt = this.dates
+        .map(date => this.tf(date))
+        .join(` ${this.rangeSeparator} `)
       if (Array.isArray(val)) {
-        return val.length > 1 ? txt : ''
+        return val.length > 1 ? txt : '';
       } else {
-        return val ? txt : ''
+        return val ? txt : '';
       }
     }
   },
@@ -112,7 +140,9 @@ export default {
     },
     vi (val) {
       if (Array.isArray(val)) {
-        return val.length > 1 ? val.map(item => new Date(item)) : [new Date(), new Date()]
+        return val.length > 1
+          ? val.map(item => new Date(item))
+          : [new Date(), new Date()]
       } else {
         return val ? new Array(new Date(val)) : [new Date()]
       }
@@ -120,9 +150,11 @@ export default {
     ok (leaveOpened) {
       const $this = this
       $this.$emit('input', $this.get())
-      !leaveOpened && !$this.showButtons && setTimeout(() => {
-        $this.show = $this.range
-      })
+      !leaveOpened &&
+        !$this.showButtons &&
+        setTimeout(() => {
+          $this.show = $this.range
+        })
     },
     tf (time, format) {
       const year = time.getFullYear()
@@ -152,7 +184,10 @@ export default {
         s: seconds,
         S: milliseconds
       }
-      return (format || this.format).replace(/Y+|M+|D+|H+|h+|m+|s+|S+/g, str => map[str])
+      return (format || this.format).replace(
+        /Y+|M+|D+|H+|h+|m+|s+|S+/g,
+        str => map[str]
+      )
     },
     dc (e) {
       this.show = this.$el.contains(e.target) && !this.disabled
@@ -178,21 +213,22 @@ export default {
 <style>
 .datepicker {
   display: inline-block;
-  position: relative;
-  background-color: rgba(0, 32, 76, .9);
+  background-color: rgba(0, 32, 76, 0.9);
   border-radius: 15px;
   width: 100%;
+  position: relative;
 }
 
 .datepicker:before {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   width: 14px;
   height: 100%;
   top: 0;
   right: 25px;
-  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OTc5RDlGN0VENEZBMTFFOEE1NkZFQ0QxRTBGMjYwOTEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OTc5RDlGN0ZENEZBMTFFOEE1NkZFQ0QxRTBGMjYwOTEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5NzlEOUY3Q0Q0RkExMUU4QTU2RkVDRDFFMEYyNjA5MSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5NzlEOUY3REQ0RkExMUU4QTU2RkVDRDFFMEYyNjA5MSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Ppns8tcAAAEfSURBVHjajJI9SgRBEIWrx5HdwF8wEDZTwUsIgqHCJgYr7g3MFCMPYGTsDURMBDXbTDE2VlBjQVRkgh1GdPxKX8Ow7IgPvqmaol53ddOhLIozM1uGSftVacMVFN/hMmD0xkN4hA7s1xj34ATmYCvhk4HHF+hZvXrq+fH4jrcki1BAHybgA0Zk+IRReIUxaMBdItO2ClNa0fNUNFSbgSbsuCepGSuHNZGplun/3rRSqZWq2oAb0VWtq/+We+KOz7CgkeO5/pRfzhdxXc1HMK6x4k6xlmsS12mqZB4O1GCVWM3jcXbjGV0P0B64iLbIh42a6in5uOewqbrHC+WdAY/fR4hP7gqO4Ulj+wSzaoy1qFVYCXrkSzBt/9MbXH8LMACNxU68IFMi+gAAAABJRU5ErkJggg==') no-repeat 50% 50%;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OTc5RDlGN0VENEZBMTFFOEE1NkZFQ0QxRTBGMjYwOTEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OTc5RDlGN0ZENEZBMTFFOEE1NkZFQ0QxRTBGMjYwOTEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5NzlEOUY3Q0Q0RkExMUU4QTU2RkVDRDFFMEYyNjA5MSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5NzlEOUY3REQ0RkExMUU4QTU2RkVDRDFFMEYyNjA5MSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Ppns8tcAAAEfSURBVHjajJI9SgRBEIWrx5HdwF8wEDZTwUsIgqHCJgYr7g3MFCMPYGTsDURMBDXbTDE2VlBjQVRkgh1GdPxKX8Ow7IgPvqmaol53ddOhLIozM1uGSftVacMVFN/hMmD0xkN4hA7s1xj34ATmYCvhk4HHF+hZvXrq+fH4jrcki1BAHybgA0Zk+IRReIUxaMBdItO2ClNa0fNUNFSbgSbsuCepGSuHNZGplun/3rRSqZWq2oAb0VWtq/+We+KOz7CgkeO5/pRfzhdxXc1HMK6x4k6xlmsS12mqZB4O1GCVWM3jcXbjGV0P0B64iLbIh42a6in5uOewqbrHC+WdAY/fR4hP7gqO4Ulj+wSzaoy1qFVYCXrkSzBt/9MbXH8LMACNxU68IFMi+gAAAABJRU5ErkJggg==")
+    no-repeat 50% 50%;
 }
 
 .datepicker-close {
@@ -207,7 +243,7 @@ export default {
 
 .datepicker-close:before {
   display: block;
-  content: '';
+  content: "";
   position: absolute;
   width: 16px;
   height: 16px;
@@ -219,32 +255,34 @@ export default {
   background: #ccc;
   color: #fff;
   border-radius: 50%;
-  background:#ccc url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OTc5RDlGN0VENEZBMTFFOEE1NkZFQ0QxRTBGMjYwOTEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OTc5RDlGN0ZENEZBMTFFOEE1NkZFQ0QxRTBGMjYwOTEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5NzlEOUY3Q0Q0RkExMUU4QTU2RkVDRDFFMEYyNjA5MSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5NzlEOUY3REQ0RkExMUU4QTU2RkVDRDFFMEYyNjA5MSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Ppns8tcAAAEfSURBVHjajJI9SgRBEIWrx5HdwF8wEDZTwUsIgqHCJgYr7g3MFCMPYGTsDURMBDXbTDE2VlBjQVRkgh1GdPxKX8Ow7IgPvqmaol53ddOhLIozM1uGSftVacMVFN/hMmD0xkN4hA7s1xj34ATmYCvhk4HHF+hZvXrq+fH4jrcki1BAHybgA0Zk+IRReIUxaMBdItO2ClNa0fNUNFSbgSbsuCepGSuHNZGplun/3rRSqZWq2oAb0VWtq/+We+KOz7CgkeO5/pRfzhdxXc1HMK6x4k6xlmsS12mqZB4O1GCVWM3jcXbjGV0P0B64iLbIh42a6in5uOewqbrHC+WdAY/fR4hP7gqO4Ulj+wSzaoy1qFVYCXrkSzBt/9MbXH8LMACNxU68IFMi+gAAAABJRU5ErkJggg==') no-repeat 50% 50%;
+  background: #ccc
+    url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OTc5RDlGN0VENEZBMTFFOEE1NkZFQ0QxRTBGMjYwOTEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OTc5RDlGN0ZENEZBMTFFOEE1NkZFQ0QxRTBGMjYwOTEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5NzlEOUY3Q0Q0RkExMUU4QTU2RkVDRDFFMEYyNjA5MSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5NzlEOUY3REQ0RkExMUU4QTU2RkVDRDFFMEYyNjA5MSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Ppns8tcAAAEfSURBVHjajJI9SgRBEIWrx5HdwF8wEDZTwUsIgqHCJgYr7g3MFCMPYGTsDURMBDXbTDE2VlBjQVRkgh1GdPxKX8Ow7IgPvqmaol53ddOhLIozM1uGSftVacMVFN/hMmD0xkN4hA7s1xj34ATmYCvhk4HHF+hZvXrq+fH4jrcki1BAHybgA0Zk+IRReIUxaMBdItO2ClNa0fNUNFSbgSbsuCepGSuHNZGplun/3rRSqZWq2oAb0VWtq/+We+KOz7CgkeO5/pRfzhdxXc1HMK6x4k6xlmsS12mqZB4O1GCVWM3jcXbjGV0P0B64iLbIh42a6in5uOewqbrHC+WdAY/fR4hP7gqO4Ulj+wSzaoy1qFVYCXrkSzBt/9MbXH8LMACNxU68IFMi+gAAAABJRU5ErkJggg==")
+    no-repeat 50% 50%;
 }
 
 .datepicker__clearable:hover:before {
   display: none;
 }
-.datepicker__clearable:hover .datepicker-close{
+.datepicker__clearable:hover .datepicker-close {
   display: block;
 }
 
-.datepicker-close:hover:before{
+.datepicker-close:hover:before {
   background-color: #afafaf;
 }
 
-.datepicker>input {
+.datepicker > input {
   color: white;
   transition: all 200ms ease;
   border: 1px solid #006aff;
-  background-color: rgba(0, 106, 255, .2);
+  background-color: rgba(0, 106, 255, 0.2);
   height: 30px;
   box-sizing: border-box;
   outline: none;
   padding: 0 30px 0 12px;
   font-size: 14px;
   width: 100%;
-  padding:0 25px;
+  padding: 0 25px;
   user-select: none;
   border-radius: 15px;
   -ms-user-select: none;
@@ -252,17 +290,17 @@ export default {
   -webkit-user-select: none;
 }
 
-.datepicker>input::-webkit-input-placeholder {
-    color: white;
+.datepicker > input::-webkit-input-placeholder {
+  color: white;
 }
 
-.datepicker>input.focus {
+.datepicker > input.focus {
   /* border-color: #3bb4f2; */
-  -webkit-box-shadow: 0 0 5px rgba(59, 180, 242, .3);
-  box-shadow: 0 0 5px rgba(59, 180, 242, .3);
+  -webkit-box-shadow: 0 0 5px rgba(59, 180, 242, 0.3);
+  box-shadow: 0 0 5px rgba(59, 180, 242, 0.3);
 }
 
-.datepicker>input:disabled {
+.datepicker > input:disabled {
   cursor: not-allowed;
   background-color: #ebebe4;
   border-color: #e5e5e5;
@@ -271,6 +309,7 @@ export default {
 }
 
 .datepicker-popup {
+  position: absolute;
   transition: all 200ms ease;
   opacity: 1;
   transform: scaleY(1);
@@ -286,19 +325,21 @@ export default {
   text-align: center;
   overflow: hidden;
   width: 100%;
-  background-color: rgba(0, 32, 76, .9);
+  background-color: rgba(0, 32, 76, 0.9);
+  top: 30px;
+  z-index: 1;
 }
 
-.datepicker-inline{
+.datepicker-inline {
   position: relative;
   margin-top: 0;
 }
 
 .datepicker-range {
-  min-width: 325px
+  min-width: 325px;
 }
 
-.datepicker-range .datepicker-popup{
+.datepicker-range .datepicker-popup {
   width: 403px;
 }
 
@@ -317,13 +358,13 @@ export default {
   cursor: pointer;
 }
 .datepicker-anim-enter-active {
-    transform-origin: 0 0;
-    animation: datepicker-anim-in .2s cubic-bezier(.23, 1, .32, 1)
+  transform-origin: 0 0;
+  animation: datepicker-anim-in 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .datepicker-anim-leave-active {
-    transform-origin: 0 0;
-    animation: datepicker-anim-out .2s cubic-bezier(.755, .05, .855, .06)
+  transform-origin: 0 0;
+  animation: datepicker-anim-out 0.2s cubic-bezier(0.755, 0.05, 0.855, 0.06);
 }
 
 .datepicker__buttons {
@@ -350,24 +391,24 @@ export default {
 }
 
 @keyframes datepicker-anim-in {
-    0% {
-        opacity: 0;
-        transform: scaleY(.8)
-    }
-    to {
-        opacity: 1;
-        transform: scaleY(1)
-    }
+  0% {
+    opacity: 0;
+    transform: scaleY(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
 }
 
 @keyframes datepicker-anim-out {
-    0% {
-        opacity: 1;
-        transform: scaleY(1)
-    }
-    to {
-        opacity: 0;
-        transform: scaleY(.8)
-    }
+  0% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  to {
+    opacity: 0;
+    transform: scaleY(0.8);
+  }
 }
 </style>
