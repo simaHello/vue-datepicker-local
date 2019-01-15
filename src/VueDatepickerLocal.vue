@@ -302,8 +302,8 @@ export default {
 
 .datepicker > input:disabled {
   cursor: not-allowed;
-  background-color: #ebebe4;
-  border-color: #e5e5e5;
+  background-color: rgba(0, 106, 255, 0.2);
+  border-color: #006aff;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
