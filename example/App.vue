@@ -75,3 +75,11 @@ export default {
   }
 }
 </script>
+
+
+<style>
+div {
+  width: 150px;
+}
+</style>
+
